@@ -8,26 +8,26 @@
         body {
             font-family: Arial, sans-serif;
             width: 58mm; /* Set the width for 58mm thermal printer */
-            height: 150mm; /* Enforce fixed height for printout */
+            height: auto; /* Enforce fixed height for printout */
             margin: 0;
             padding: 0px;
-            font-size: 12px; /* Adjust general font size */
+            font-size: 10px; /* Adjust general font size */
             color: black; /* Ensure all text is black */
             overflow: hidden; /* Prevent content overflow */
         }
 
         .header, .footer {
             text-align: center;
-            margin-bottom: 7px;
+            margin-bottom: 4px;
         }
 
         .header h1 {
-            font-size: 14px; /* Set font size for Shop Name */
+            font-size: 12px; /* Set font size for Shop Name */
             font-weight: bold; /* Make Shop Name bold */
         }
 
         .header p, .footer p {
-            margin: 5px 0;
+            margin: 4px 0;
             font-weight: normal; /* Set all other text to normal weight */
         }
 
@@ -36,7 +36,7 @@
         }
 
         .content {
-            margin-bottom: 7px;
+            margin-bottom: 3px;
             text-align: left; /* Align all content to the left */
             padding-left: 1px; /* Add slight padding for better alignment */
         }
@@ -47,29 +47,29 @@
 
         .card-box {
             display: block;
-            margin: 5px auto;
+            margin: 1px auto;
             width: 90%;
-            max-width: 48mm; /* Adjust size to fit within 58mm paper */
-            height: 15mm;
+            max-width: 36mm; /* Adjust size to fit within 58mm paper */
+            height: 12mm;
             border: 1px solid black; /* Box around card number */
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 36px; /* Large font size for card number */
+            font-size: 32px; /* Large font size for card number */
             font-weight: bold;
         }
 
         .card-label {
             text-align: center;
-            margin-top: 3px;
-            margin-bottom: 10px;
-            font-size: 12px;
+            margin-top: 2px;
+            margin-bottom: 7px;
+            font-size: 10px;
             font-weight: normal;
         }
 
         .footer p {
-            margin: 5px 0;
+            margin: 3px 0;
             font-size: 10px;
         }
 
