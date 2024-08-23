@@ -1,1 +1,181 @@
-test
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Receipt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            width: 58mm; /* Set the width for 58mm thermal printer */
+            height: auto; /* Adjust height based on content */
+            margin: 0;
+            padding: 0px;
+            font-size: 12px; /* Adjust general font size */
+            color: black; /* Ensure all text is black */
+            overflow: hidden; /* Prevent content overflow */
+        }
+
+        .header, .footer {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            font-size: 14px; /* Set font size for Shop Name */
+            font-weight: bold; /* Make Shop Name bold */
+        }
+
+        .header p, .footer p {
+            margin: 5px 0;
+            font-weight: normal; /* Set all other text to normal weight */
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .content {
+            margin-bottom: 10px;
+            text-align: left; /* Align all content to the left */
+            padding-left: 5px; /* Add slight padding for better alignment */
+        }
+
+        .content p {
+            margin: 3px 0;
+        }
+
+        .card-box {
+            display: block;
+            margin: 5px auto;
+            width: 90%;
+            max-width: 48mm; /* Adjust size to fit within 58mm paper */
+            height: 15mm;
+            border: 1px solid black; /* Box around card number */
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px; /* Large font size for card number */
+            font-weight: bold;
+        }
+
+        .card-label {
+            text-align: center;
+            margin-top: 3px;
+            margin-bottom: 10px;
+            font-size: 12px;
+            font-weight: normal;
+        }
+
+        .footer p {
+            margin: 5px 0;
+            font-size: 10px;
+        }
+
+        /* Optional: Control the layout to fit within the specified dimensions */
+        @media print {
+            body {
+                width: 58mm;
+                margin: 0;
+                padding: 0px;
+            }
+
+            /* Ensure that all elements use the full width */
+            .header, .footer {
+                width: 100%; 
+                text-align: center; 
+                padding: 0; 
+                margin: 0;
+            }
+
+            .content {
+                width: 100%;
+                text-align: left;
+                padding-left: 5px; /* Ensure consistent left alignment */
+            }
+
+            .card-box {
+                width: 100%;
+                height: 20mm;
+                font-size: 36px;
+            }
+
+            .card-label {
+                margin-top: 2px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 id="shopname">Shop Name</h1>
+        <p id="shopaddress">Shop Address</p>
+        <p id="shopcontactnumber">Shop Contact Number</p>
+        <p>&nbsp;</p>
+    </div>
+
+    <div class="content">
+        <p>Customer Name: <span id="customername"></span></p>
+        <p>Transaction Number: <span id="orderid"></span></p>
+        <p>Date of transaction: <span id="transactiondate"></span></p>
+        <p>Total Amount Ordered: <span id="orderedqty"></span></p>
+        <p>Total Amount: <span id="totalamount"></span></p>
+        <p>&nbsp;</p>
+    </div>
+
+    <div class="card-box" id="cardnumber-box">
+        <!-- Card Number will appear here -->
+    </div>
+    <div class="card-label">Card Number</div>
+
+    <div class="footer">
+        <p>This system is powered by</p>
+        <p class="bold">Momsbest Mobile App</p>
+        <p>Your Ultimate Laundry App</p>
+    </div>
+
+    <script>
+        // Function to get URL parameters
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                shopname: params.get('shopname'),
+                shopaddress: params.get('shopaddress'),
+                shopcontactnumber: params.get('shopcontactnumber'),
+                customername: params.get('customername'),
+                orderid: params.get('orderid'),
+                transactiondate: params.get('transactiondate'),
+                orderedqty: params.get('orderedqty'),
+                totalamount: params.get('totalamount'),
+                cardnumber: params.get('cardnumber') // Removed QR code, using Card Number now
+            };
+        }
+
+        // Function to populate the page content and trigger printing
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = getQueryParams();
+            document.getElementById('shopname').textContent = params.shopname;
+            document.getElementById('shopaddress').textContent = params.shopaddress;
+            document.getElementById('shopcontactnumber').textContent = params.shopcontactnumber;
+            document.getElementById('customername').textContent = params.customername;
+            document.getElementById('orderid').textContent = params.orderid;
+            document.getElementById('transactiondate').textContent = params.transactiondate;
+            document.getElementById('orderedqty').textContent = params.orderedqty;
+            document.getElementById('totalamount').textContent = params.totalamount;
+
+            // Set the Card Number in the card-box div
+            document.getElementById('cardnumber-box').textContent = params.cardnumber;
+
+            // Trigger the print dialog
+            window.print();
+
+            // Close the window after the print dialog is opened
+            window.onafterprint = function() {
+                window.close();
+            };
+        });
+    </script>
+</body>
+</html>
+
