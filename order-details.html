@@ -167,15 +167,14 @@
             // Set the Card Number in the card-box div
             document.getElementById('cardnumber-box').textContent = params.cardnumber;
 
-            // Trigger the print dialog
-            window.print();
-
-            // Close the window after the print dialog is opened
-            window.onafterprint = function() {
-                window.close();
-            };
+            // Trigger the print dialog after a brief delay
+            setTimeout(() => {
+                window.print();
+                window.onafterprint = function() {
+                    window.close(); // Use if appropriate
+                };
+            }, 500); // Delay to ensure everything is loaded and rendered
         });
     </script>
 </body>
 </html>
-
