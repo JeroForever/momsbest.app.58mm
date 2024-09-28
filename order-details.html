@@ -7,27 +7,27 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            width: 58mm; /* Set the width for 58mm thermal printer */
-            height: auto; /* Enforce fixed height for printout */
+            width: 80mm; /* Set the width for thermal printer */
+            height: 150mm; /* Enforce fixed height for printout */
             margin: 0;
             padding: 0px;
-            font-size: 7px; /* Adjust general font size */
+            font-size: 14px; /* Adjust general font size */
             color: black; /* Ensure all text is black */
             overflow: hidden; /* Prevent content overflow */
         }
 
         .header, .footer {
             text-align: center;
-            margin-bottom: 4px;
+            margin-bottom: 10px;
         }
 
         .header h1 {
-            font-size: 12px; /* Set font size for Shop Name */
+            font-size: 16px; /* Set font size for Shop Name */
             font-weight: bold; /* Make Shop Name bold */
         }
 
-        .header p, .footer p {
-            margin: 1px 0;
+        .header p, .content p, .footer p {
+            margin: 5px 0;
             font-weight: normal; /* Set all other text to normal weight */
         }
 
@@ -36,103 +36,132 @@
         }
 
         .content {
-            margin-bottom: 3px;
-            text-align: left; /* Align all content to the left */
-            padding-left: 1px; /* Add slight padding for better alignment */
-        }
-
-        .content p {
-            margin: 3px 0;
+            margin-bottom: 15px;
+            text-align: left; /* Align customer name to card number to the left */
+            padding-left: 5px; /* Add slight padding for better alignment */
         }
 
         .card-box {
             display: block;
-            margin: 1px auto;
-            width: 90%;
-            max-width: 36mm; /* Adjust size to fit within 58mm paper */
-            height: 12mm;
+            margin: 20px auto;
+            width: 60mm;
+            height: 50mm;
             border: 1px solid black; /* Box around card number */
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px; /* Large font size for card number */
+            font-size: 48px; /* Large font size for card number */
             font-weight: bold;
         }
 
         .card-label {
             text-align: center;
-            margin-top: 2px;
-            margin-bottom: 7px;
-            font-size: 10px;
+            margin-top: 5px;
+            font-size: 16px;
             font-weight: normal;
         }
 
         .footer p {
-            margin: 3px 0;
-            font-size: 10px;
+            margin: 5px 0;
+            font-size: 12px;
         }
 
-        /* Optional: Control the layout to fit within the specified dimensions */
+        /* Duplicate receipt for printing twice */
+        .receipt {
+            margin-bottom: 50px;
+        }
+
         @media print {
             body {
-                width: 58mm;
+                height: auto;
+                width: 80mm;
                 margin: 0;
                 padding: 0px;
             }
 
+            .receipt {
+                page-break-after: always; /* Ensure each receipt starts on a new page */
+            }
+
             /* Ensure that all elements use the full width */
-            .header, .footer {
+            .header, .content, .footer {
                 width: 100%; 
                 text-align: center; 
                 padding: 0; 
                 margin: 0;
             }
 
-            .content {
-                width: 100%;
-                text-align: left;
-                padding-left: 1px; /* Ensure consistent left alignment */
-            }
-
             .card-box {
                 width: 100%;
-                height: 20mm;
-                font-size: 36px;
+                height: 50mm;
+                font-size: 48px;
             }
 
             .card-label {
-                margin-top: 2px;
+                margin-top: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1 id="shopname">Shop Name</h1>
-        <p id="shopaddress">Shop Address</p>
-        <p id="shopcontactnumber">Shop Contact Number</p>
-        <p>&nbsp;</p>
+    <div class="receipt">
+        <div class="header">
+            <h1 id="shopname">Shop Name</h1>
+            <p id="shopaddress">Shop Address</p>
+            <p id="shopcontactnumber">Shop Contact Number</p>
+            <p>&nbsp;</p>
+        </div>
+
+        <div class="content">
+            <p>Customer Name: <span id="customername"></span></p>
+            <p>Transaction Number: <span id="orderid"></span></p>
+            <p>Date of transaction: <span id="transactiondate"></span></p>
+            <p>Total Amount Ordered: <span id="orderedqty"></span></p>
+            <p>Total Amount: <span id="totalamount"></span></p>
+            <p>&nbsp;</p>
+        </div>
+
+        <div class="card-box" id="cardnumber-box">
+            <!-- Card Number will appear here -->
+        </div>
+        <div class="card-label">Card Number</div>
+
+        <div class="footer">
+            <p>This system is powered by</p>
+            <p class="bold">Momsbest Mobile App</p>
+            <p>Your Ultimate Laundry App</p>
+        </div>
     </div>
 
-    <div class="content">
-        <p>Customer Name: <span id="customername"></span></p>
-        <p>Transaction Number: <span id="orderid"></span></p>
-        <p>Date of transaction: <span id="transactiondate"></span></p>
-        <p>Total Amount Ordered: <span id="orderedqty"></span></p>
-        <p>Total Amount: <span id="totalamount"></span></p>
-        <p>&nbsp;</p>
-    </div>
+    <!-- Duplicate the same receipt -->
+    <div class="receipt">
+        <div class="header">
+            <h1 id="shopname2">Shop Name</h1>
+            <p id="shopaddress2">Shop Address</p>
+            <p id="shopcontactnumber2">Shop Contact Number</p>
+            <p>&nbsp;</p>
+        </div>
 
-    <div class="card-box" id="cardnumber-box">
-        <!-- Card Number will appear here -->
-    </div>
-    <div class="card-label">Card Number</div>
+        <div class="content">
+            <p>Customer Name: <span id="customername2"></span></p>
+            <p>Transaction Number: <span id="orderid2"></span></p>
+            <p>Date of transaction: <span id="transactiondate2"></span></p>
+            <p>Total Amount Ordered: <span id="orderedqty2"></span></p>
+            <p>Total Amount: <span id="totalamount2"></span></p>
+            <p>&nbsp;</p>
+        </div>
 
-    <div class="footer">
-        <p>This system is powered by</p>
-        <p class="bold">Momsbest Mobile App</p>
-        <p>Your Ultimate Laundry App</p>
+        <div class="card-box" id="cardnumber-box2">
+            <!-- Card Number will appear here -->
+        </div>
+        <div class="card-label">Card Number</div>
+
+        <div class="footer">
+            <p>This system is powered by</p>
+            <p class="bold">Momsbest Mobile App</p>
+            <p>Your Ultimate Laundry App</p>
+        </div>
     </div>
 
     <script>
@@ -148,13 +177,14 @@
                 transactiondate: params.get('transactiondate'),
                 orderedqty: params.get('orderedqty'),
                 totalamount: params.get('totalamount'),
-                cardnumber: params.get('cardnumber') // Removed QR code, using Card Number now
+                cardnumber: params.get('cardnumber')
             };
         }
 
-        // Function to populate the page content and trigger printing
         document.addEventListener('DOMContentLoaded', function() {
             const params = getQueryParams();
+
+            // Populate first receipt
             document.getElementById('shopname').textContent = params.shopname;
             document.getElementById('shopaddress').textContent = params.shopaddress;
             document.getElementById('shopcontactnumber').textContent = params.shopcontactnumber;
@@ -163,17 +193,26 @@
             document.getElementById('transactiondate').textContent = params.transactiondate;
             document.getElementById('orderedqty').textContent = params.orderedqty;
             document.getElementById('totalamount').textContent = params.totalamount;
-
-            // Set the Card Number in the card-box div
             document.getElementById('cardnumber-box').textContent = params.cardnumber;
 
-            // Trigger the print dialog after a brief delay
-            setTimeout(() => {
-                window.print();
-                window.onafterprint = function() {
-                    window.close(); // Use if appropriate
-                };
-            }, 500); // Delay to ensure everything is loaded and rendered
+            // Populate second receipt
+            document.getElementById('shopname2').textContent = params.shopname;
+            document.getElementById('shopaddress2').textContent = params.shopaddress;
+            document.getElementById('shopcontactnumber2').textContent = params.shopcontactnumber;
+            document.getElementById('customername2').textContent = params.customername;
+            document.getElementById('orderid2').textContent = params.orderid;
+            document.getElementById('transactiondate2').textContent = params.transactiondate;
+            document.getElementById('orderedqty2').textContent = params.orderedqty;
+            document.getElementById('totalamount2').textContent = params.totalamount;
+            document.getElementById('cardnumber-box2').textContent = params.cardnumber;
+
+            // Trigger the print dialog
+            window.print();
+
+            // Close the window after the print dialog is opened
+            window.onafterprint = function() {
+                window.close();
+            };
         });
     </script>
 </body>
